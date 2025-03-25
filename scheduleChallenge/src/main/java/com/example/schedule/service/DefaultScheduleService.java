@@ -66,10 +66,26 @@ public class DefaultScheduleService implements IScheduleService {
     }
 
 
+    @Transactional
     @Override
-    public void deleteSchedule(Long id) {
+    public void deleteSchedule(Long id, String password) {
+        // 해당 ID로 스케줄을 조회
+        ScheduleEntity schedule = scheduleRepository.findScheduleById(id);
+
+        // 비밀번호 확인: 비밀번호가 null인지 확인
+        if (schedule.getPassword() == null || schedule.getPassword().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Password is not set for this schedule");
+        }
+
+        // 비밀번호가 일치하는지 확인
+        if (!schedule.getPassword().equals(password)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid password");
+        }
+
+        // 스케줄 삭제
         int deleteRow = scheduleRepository.deleteSchedule(id);
 
+        // 삭제된 행이 없는 경우 예외 발생
         if (deleteRow == 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
         }
