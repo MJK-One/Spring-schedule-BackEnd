@@ -21,5 +21,5 @@ public interface IScheduleService {
     ScheduleDto updateSchedule(Long id, String task, String name, String password); // ID로 스케줄 수정, 비밀번호 확인 필요
 
     // 선택한 일정 삭제 메서드
-    void deleteSchedule(Long id); // ID로 특정 스케줄 삭제
+    void deleteSchedule(Long id, String password); // ID로 특정 스케줄 삭제
 }
