@@ -1,0 +1,11 @@
+package com.example.schedule.dto.Schedule;
+
+import lombok.Getter;
+
+import javax.validation.constraints.NotBlank;
+
+@Getter
+public class DeleteScheduleRequest {
+    @NotBlank(message = "Password cannot be empty") // 비밀번호 필드 유효성 검사
+    private String password;
+}
