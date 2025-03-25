@@ -31,6 +31,12 @@
 # 회고록
 > "Entity, DTO, Repository, Service, Controller 구조와 명확한 역할에 대해서 익히는데 많은 도움이 되었다. 내 코드가 구조와 역할에 맞게 잘짜여졌는 지는 좀 더 공부하면서 보안해 나가야할듯하다."
 
+# 보안해야할 점
+**비밀번호 저장 방식** <br>
+- 비밀 번호는 민감한 정보이다. 안전하게 처리 할 수 있게 수정이 필요한 부분. 
+
+<hr>
+
 # API 명세서
 ## 1. Author API
 | 메서드 | URL         | 설명           | 요청 본문 예시                              | 응답 예시                                      | 상태 코드       |
@@ -47,26 +53,29 @@
 | DELETE | /schedules/{id}     | 일정 삭제      | -                                                | -                                                    | 204 No Content    |
 
 # ERD
-![Image](https://github.com/user-attachments/assets/a406e282-2379-47c3-a79d-749ba5f92d35) <BR>
+![123](https://github.com/user-attachments/assets/470f6ec8-05d3-4484-9ca5-4a12c8112137)
+<BR>
 **Author 테이블** <BR>
-AuthorID: 기본키 (Primary Key), 자동 증가 (AUTO_INCREMENT) <BR>
-Email: 고유한 이메일 주소 (UNIQUE), 비어 있을 수 없음 (NOT NULL) <BR>
-createPostTime: 레코드 생성 시간, 기본값은 현재 시간 <BR>
-updatePostTime: 레코드 업데이트 시간, 기본값은 현재 시간, 수정 시 자동 업데이트 <BR>
+- AuthorID: 기본키 (Primary Key), 자동 증가 (AUTO_INCREMENT) <BR>
+- Email: 고유한 이메일 주소 (UNIQUE), 비어 있을 수 없음 (NOT NULL) <BR>
+- createPostTime: 레코드 생성 시간, 기본값은 현재 시간 <BR>
+- updatePostTime: 레코드 업데이트 시간, 기본값은 현재 시간, 수정 시 자동 업데이트 <BR>
 <BR>
+
 **Schedule 테이블** <BR>
-ID: 기본키 (Primary Key), 자동 증가 (AUTO_INCREMENT)<BR>
-Task: 작업 설명, 비어 있을 수 없음 (NOT NULL)<BR>
-Name: 작업 이름, 비어 있을 수 없음 (NOT NULL)<BR>
-AuthorID: 외래키 (Foreign Key), Author 테이블의 AuthorID를 참조 (NOT NULL)<BR>
-Password: 비밀번호, 비어 있을 수 없음 (NOT NULL)<BR>
-createPostTime: 레코드 생성 시간, 기본값은 현재 시간<BR>
-updatePostTime: 레코드 업데이트 시간, 기본값은 현재 시간, 수정 시 자동 업데이트<BR>
+- ID: 기본키 (Primary Key), 자동 증가 (AUTO_INCREMENT)<BR>
+- Task: 작업 설명, 비어 있을 수 없음 (NOT NULL)<BR>
+- Name: 작업 이름, 비어 있을 수 없음 (NOT NULL)<BR>
+- AuthorID: 외래키 (Foreign Key), Author 테이블의 AuthorID를 참조 (NOT NULL)<BR>
+- Password: 비밀번호, 비어 있을 수 없음 (NOT NULL)<BR>
+- createPostTime: 레코드 생성 시간, 기본값은 현재 시간<BR>
+- updatePostTime: 레코드 업데이트 시간, 기본값은 현재 시간, 수정 시 자동 업데이트<BR>
 <BR>
+
 **관계**<BR>
-Author와 Schedule 테이블 간의 관계: <BR>
-1:N 관계 (한 명의 저자(Author)는 여러 작업(Schedule)을 가질 수 있음) <BR> 
-Schedule.AuthorID는 Author.AuthorID를 외래키로 참조하며, 저자가 삭제되면 해당 저자와 관련된 모든 작업도 삭제됨(ON DELETE CASCADE). <BR>
+- Author와 Schedule 테이블 간의 관계: <BR>
+- 1:N 관계 (한 명의 저자(Author)는 여러 작업(Schedule)을 가질 수 있음) <BR> 
+- Schedule.AuthorID는 Author.AuthorID를 외래키로 참조하며, 저자가 삭제되면 해당 저자와 관련된 모든 작업도 삭제됨(ON DELETE CASCADE). <BR>
 
 # SQL Schema
 ```
