@@ -1,6 +1,7 @@
 package com.example.schedule.controller;
 
 import com.example.schedule.dto.Schedule.CreateScheduleRequest;
+import com.example.schedule.dto.Schedule.DeleteScheduleRequest;
 import com.example.schedule.dto.Schedule.ScheduleDto;
 import com.example.schedule.service.IScheduleService;
 import org.springframework.http.HttpStatus;
@@ -61,10 +62,11 @@ public class ScheduleController {
 
     // 선택한 일정 삭제 API
     @DeleteMapping("/{id}") // URL 경로에 ID를 포함하여 요청
-    public ResponseEntity<Void> deleteSchedule(@PathVariable Long id) {
-        // ID로 스케줄을 삭제
-        scheduleService.deleteSchedule(id);
+    public ResponseEntity<Void> deleteSchedule(@PathVariable Long id, @RequestBody DeleteScheduleRequest request) {
+        // 스케줄 삭제 서비스 호출
+        scheduleService.deleteSchedule(id, request.getPassword());
+
         // 삭제 성공 응답 (204 No Content 상태 코드)
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }
